@@ -58,7 +58,7 @@ function AddUser({}: Props) {
   return (
     <>
       <Backdrop loading={loading} />
-      <div className="p-10 lg:p-24 min-h-screen ">
+      <div className="px-10 py-5 lg:px-24 lg:py-10 min-h-screen ">
         <form onSubmit={onSubmit}>
           <FormSection title="Personal Details">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
