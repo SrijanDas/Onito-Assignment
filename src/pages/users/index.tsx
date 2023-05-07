@@ -1,5 +1,6 @@
 import Button from "@/components/elements/Button";
 import Input from "@/components/elements/Input";
+import Backdrop from "@/components/shared/Backdrop";
 import { UserCollection } from "@/firebase/db";
 import { IUser } from "@/types";
 import { getDocs } from "firebase/firestore";
@@ -51,20 +52,27 @@ const columns: TableColumn<IUser>[] = [
 function Users() {
   const [users, setUsers] = useState<IUser[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<IUser[]>([]);
+  const [loading, setLoading] = useState(true);
   // const [search, setSearch] = useState<string>("");
 
   useEffect(() => {
     async function fetchUsers() {
-      const querySnapshot = await getDocs(UserCollection);
-      const fetchedData: Array<IUser> = [];
+      try {
+        const querySnapshot = await getDocs(UserCollection);
+        const fetchedData: Array<IUser> = [];
 
-      querySnapshot.forEach((doc) => {
-        // console.log(`${doc.id} => ${doc.data()}`);
-        fetchedData.push({ id: doc.id, ...doc.data() } as IUser);
-      });
+        querySnapshot.forEach((doc) => {
+          // console.log(`${doc.id} => ${doc.data()}`);
+          fetchedData.push({ id: doc.id, ...doc.data() } as IUser);
+        });
 
-      setUsers(fetchedData);
-      setFilteredUsers(fetchedData);
+        setUsers(fetchedData);
+        setFilteredUsers(fetchedData);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
     }
     fetchUsers();
   }, []);
@@ -75,7 +83,8 @@ function Users() {
       return (
         user.name.toLowerCase().match(text.toLowerCase()) ||
         user.mobile?.match(text) ||
-        user.address?.toLowerCase().match(text.toLowerCase())
+        user.address?.toLowerCase().match(text.toLowerCase()) ||
+        user.govtId?.toLowerCase().match(text.toLowerCase())
       );
     });
     setFilteredUsers(reults);
@@ -83,19 +92,26 @@ function Users() {
 
   // console.log(users);
   return (
-    <div className="min-h-screen bg-gray-100 p-10 lg:p-14 mx-auto">
-      <div className="shadow-lg rounded-lg max-w-screen-2xl bg-white">
-        <DataTable
-          pagination
-          columns={columns}
-          data={filteredUsers}
-          subHeader
-          subHeaderComponent={
-            <CustomSubHeader data={filteredUsers} handleSearch={handleSearch} />
-          }
-        />
+    <>
+      {loading && <Backdrop loading={loading} />}
+
+      <div className="min-h-screen bg-gray-100 p-10 lg:p-14 mx-auto">
+        <div className="shadow-lg rounded-lg max-w-screen-2xl bg-white">
+          <DataTable
+            pagination
+            columns={columns}
+            data={filteredUsers}
+            subHeader
+            subHeaderComponent={
+              <CustomSubHeader
+                data={filteredUsers}
+                handleSearch={handleSearch}
+              />
+            }
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
