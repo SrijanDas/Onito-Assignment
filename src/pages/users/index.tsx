@@ -25,7 +25,7 @@ const columns: TableColumn<IUser>[] = [
   },
   {
     name: "Address",
-    selector: (row) => "Address",
+    selector: (row) => row.address ?? "",
     sortable: true,
   },
   {
@@ -36,7 +36,9 @@ const columns: TableColumn<IUser>[] = [
   {
     name: "Guardian Details",
     selector: (row) =>
-      `${row.guardianName} (${row.guardianRelation?.toUpperCase()})`,
+      `${row.guardianName} ${
+        row.guardianRelation && `(${row.guardianRelation})`
+      }`,
     sortable: true,
   },
   {
@@ -72,8 +74,8 @@ function Users() {
     const reults = users.filter((user) => {
       return (
         user.name.toLowerCase().match(text.toLowerCase()) ||
-        user.mobile?.match(text)
-        // || user.address.toLowerCase().match(text.toLowerCase())
+        user.mobile?.match(text) ||
+        user.address?.toLowerCase().match(text.toLowerCase())
       );
     });
     setFilteredUsers(reults);
