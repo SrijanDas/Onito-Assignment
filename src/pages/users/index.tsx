@@ -83,7 +83,8 @@ function Users() {
       return (
         user.name.toLowerCase().match(text.toLowerCase()) ||
         user.mobile?.match(text) ||
-        user.address?.toLowerCase().match(text.toLowerCase())
+        user.address?.toLowerCase().match(text.toLowerCase()) ||
+        user.govtId?.toLowerCase().match(text.toLowerCase())
       );
     });
     setFilteredUsers(reults);
