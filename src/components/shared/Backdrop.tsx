@@ -5,7 +5,7 @@ type Props = {
   loading?: boolean;
 };
 
-function Backdrop({ loading = false }: Props) {
+function Backdrop({ loading = true }: Props) {
   useEffect(() => {
     if (loading) {
       window.scrollTo(0, 0);
