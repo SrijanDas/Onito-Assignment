@@ -24,36 +24,56 @@ const userFormSchema = yup
         "Select gender"
       )
       .required("Sex is required"),
-    mobile: yup.string().max(12).min(10, "Phone Number must be 10 digits long"),
-    govtIdType: yup.string().oneOf(
-      govtIdTypeOptions.map((o) => o.value),
-      "Select Id Type"
-    ),
+    mobile: yup
+      .string()
+      .default(null)
+      .max(12)
+      .min(10, "Phone Number must be 10 digits long")
+      .notRequired(),
+    govtIdType: yup
+      .string()
+      .oneOf(
+        govtIdTypeOptions.map((o) => o.value),
+        "Select Id Type"
+      )
+
+      .notRequired(),
 
     // Regex for pan numbers
     // https://stackoverflow.com/questions/37251151/pancard-structure-validation-in-javascript-and-php-also
-    govtId: yup.string().when("govtIdType", {
-      is: "pan",
-      then: (schema) =>
-        schema
-          .length(10, "Enter a valid PAN number")
-          .matches(
-            /^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/,
-            "Enter a valid PAN number"
-          ),
-      otherwise: (schema) => schema.length(12, "Enter a valid Aadhar number"),
-    }),
-    guardianRelation: yup.string().oneOf(
-      guardianRelationOptions.map((o) => o.value),
-      "Select relation"
-    ),
+    govtId: yup
+      .string()
+      .when("govtIdType", {
+        is: "pan",
+        then: (schema) =>
+          schema
+            .length(10, "Enter a valid PAN number")
+            .matches(
+              /^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$/,
+              "Enter a valid PAN number"
+            ),
+        otherwise: (schema) =>
+          schema.length(12, "Enter a valid Aadhar number").notRequired(),
+      })
+      .notRequired(),
+    guardianRelation: yup
+      .string()
+      .oneOf(
+        guardianRelationOptions.map((o) => o.value),
+        "Select relation"
+      )
+      .optional()
+      .nullable()
+      .default(null),
     guardianName: yup.string(),
     email: yup.string().email("Enter a valid email address"),
-    emergencyContactNumber: yup
-      .string()
-      .max(12)
-      .min(10, "Phone Number must be 10 digits long")
-      .ensure(),
+    emergencyContactNumber: yup.string(),
+
+    address: yup.string().notRequired(),
+    country: yup.string().notRequired(),
+    state: yup.string().notRequired(),
+    city: yup.string().notRequired(),
+    pincode: yup.string().notRequired(),
     occupation: yup.string(),
     religion: yup.string().oneOf(
       religionOptions.map((o) => o.value),

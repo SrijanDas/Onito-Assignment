@@ -1,5 +1,9 @@
 export const genderOptions = [
   {
+    label: "Select Gender",
+    value: "",
+  },
+  {
     label: "Male",
     value: "M",
   },
@@ -15,6 +19,10 @@ export const genderOptions = [
 
 export const govtIdTypeOptions = [
   {
+    label: "Id Type",
+    value: "",
+  },
+  {
     label: "PAN",
     value: "pan",
   },
@@ -25,6 +33,10 @@ export const govtIdTypeOptions = [
 ] as const;
 
 export const guardianRelationOptions = [
+  {
+    label: "Select Relation",
+    value: "",
+  },
   {
     label: "Father",
     value: "father",
@@ -53,6 +65,10 @@ export const guardianRelationOptions = [
 
 export const religionOptions = [
   {
+    label: "Select Religion",
+    value: "",
+  },
+  {
     label: "Hindu",
     value: "hindu",
   },
@@ -76,6 +92,10 @@ export const religionOptions = [
 
 export const maritalStatusOptions = [
   {
+    label: "Select Marital Status",
+    value: "",
+  },
+  {
     label: "Single",
     value: "single",
   },
@@ -90,6 +110,10 @@ export const maritalStatusOptions = [
 ] as const;
 
 export const bloodGroupOptions = [
+  {
+    label: "Select Blood Group",
+    value: "",
+  },
   {
     label: "A+",
     value: "A+",

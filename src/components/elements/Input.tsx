@@ -26,7 +26,7 @@ function Input({
   return (
     <div className={`flex items-center gap-6 w-full ${className}`}>
       {label && (
-        <label className="mb-2 text-sm font-medium text-gray-900 flex gap-1">
+        <label className="mb-5 text-sm font-medium text-gray-900 flex gap-1">
           {label} {required && <span className="text-red-600">*</span>}
         </label>
       )}
