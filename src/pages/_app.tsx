@@ -8,7 +8,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Navbar />
-      <div className="max-w-screen-2xl mx-auto">
+      <div className="mx-auto">
         <Component {...pageProps} />
       </div>
       <Footer />
