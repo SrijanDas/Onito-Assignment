@@ -1,7 +1,6 @@
 import Button from "@/components/elements/Button";
 import Input from "@/components/elements/Input";
 import SelectInput from "@/components/elements/SelectInput";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
@@ -100,7 +99,10 @@ function AddUser({}: Props) {
     <>
       <Backdrop loading={loading} />
       <div className="px-10 py-5 lg:px-24 lg:py-10 min-h-screen ">
-        <form onSubmit={onSubmit}>
+        <form
+          className="bg-white bg-opacity-95 rounded-lg shadow-lg px-10 py-5"
+          onSubmit={onSubmit}
+        >
           <FormSection col={3} title="Personal Details">
             <Input
               label="Name"
@@ -120,7 +122,7 @@ function AddUser({}: Props) {
               error={errors.sex?.message}
               register={register("sex")}
               label="Sex"
-              defaultValue="Enter Sex"
+              defaultValue=""
               required
             >
               {genderOptions.map((option, i) => (
@@ -139,7 +141,7 @@ function AddUser({}: Props) {
               <SelectInput
                 className="w-[40%]"
                 label="Govt Issued Id"
-                defaultValue="Id Type"
+                defaultValue=""
                 register={register("govtIdType")}
                 error={errors.govtIdType?.message}
               >
@@ -166,7 +168,7 @@ function AddUser({}: Props) {
                 register={register("guardianRelation")}
                 error={errors.guardianRelation?.message}
                 label="Guardian Details"
-                defaultValue="Enter label"
+                defaultValue=""
               >
                 {guardianRelationOptions.map((option, i) => (
                   <option key={`guardian_option_${i}`} value={option.value}>
@@ -219,7 +221,7 @@ function AddUser({}: Props) {
             <SelectInput
               register={register("state")}
               label="State"
-              defaultValue="Select State"
+              defaultValue=""
             >
               {stateOptions.map((option, i) => (
                 <option key={`country_option_${i}`} value={option.value}>
@@ -249,7 +251,7 @@ function AddUser({}: Props) {
               register={register("religion")}
               error={errors.religion?.message}
               label="Religion"
-              defaultValue="Enter Religion"
+              defaultValue=""
             >
               {religionOptions.map((option, i) => (
                 <option key={`religion_option_${i}`} value={option.value}>
@@ -261,7 +263,7 @@ function AddUser({}: Props) {
               register={register("maritalStatus")}
               error={errors.maritalStatus?.message}
               label="Marital Status"
-              defaultValue="Enter Marital Status"
+              defaultValue=""
             >
               {maritalStatusOptions.map((option, i) => (
                 <option key={`mariatal_option_${i}`} value={option.value}>
@@ -273,7 +275,7 @@ function AddUser({}: Props) {
               register={register("bloodGroup")}
               error={errors.bloodGroup?.message}
               label="Blood Group"
-              defaultValue="Enter Blood Group"
+              defaultValue=""
             >
               {bloodGroupOptions.map((option, i) => (
                 <option key={`mariatal_option_${i}`} value={option.value}>

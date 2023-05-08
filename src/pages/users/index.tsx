@@ -2,8 +2,8 @@ import Button from "@/components/elements/Button";
 import Input from "@/components/elements/Input";
 import Backdrop from "@/components/shared/Backdrop";
 import { UserCollection } from "@/firebase/db";
+import useFetch from "@/hooks/useFetch";
 import { IUser } from "@/types";
-import { getDocs } from "firebase/firestore";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import DataTable, { TableColumn } from "react-data-table-component";
@@ -50,32 +50,12 @@ const columns: TableColumn<IUser>[] = [
 ];
 
 function Users() {
-  const [users, setUsers] = useState<IUser[]>([]);
+  const [users, setUsers, loading] = useFetch<IUser>(UserCollection);
+
   const [filteredUsers, setFilteredUsers] = useState<IUser[]>([]);
-  const [loading, setLoading] = useState(true);
-  // const [search, setSearch] = useState<string>("");
-
   useEffect(() => {
-    async function fetchUsers() {
-      try {
-        const querySnapshot = await getDocs(UserCollection);
-        const fetchedData: Array<IUser> = [];
-
-        querySnapshot.forEach((doc) => {
-          // console.log(`${doc.id} => ${doc.data()}`);
-          fetchedData.push({ id: doc.id, ...doc.data() } as IUser);
-        });
-
-        setUsers(fetchedData);
-        setFilteredUsers(fetchedData);
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchUsers();
-  }, []);
+    setFilteredUsers(users);
+  }, [users]);
 
   function handleSearch(text: string) {
     // console.log(text);
@@ -93,10 +73,10 @@ function Users() {
   // console.log(users);
   return (
     <>
-      {loading && <Backdrop loading={loading} />}
+      {loading && <Backdrop />}
 
-      <div className="min-h-screen bg-gray-100 p-10 lg:p-14 mx-auto">
-        <div className="shadow-lg rounded-lg max-w-screen-2xl bg-white">
+      <div className="min-h-screen p-5 md:p-10 lg:p-14 mx-auto">
+        <div className="shadow-lg rounded-lg max-w-screen-2xl bg-white p-2">
           <DataTable
             pagination
             columns={columns}
