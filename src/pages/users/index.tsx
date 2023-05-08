@@ -76,7 +76,7 @@ function Users() {
       {loading && <Backdrop />}
 
       <div className="min-h-screen p-5 md:p-10 lg:p-14 mx-auto">
-        <div className="shadow-lg rounded-lg max-w-screen-2xl bg-white p-2">
+        <div className="shadow-lg h-[43rem] w-full rounded-lg max-w-screen-2xl bg-white p-2">
           <DataTable
             pagination
             columns={columns}
