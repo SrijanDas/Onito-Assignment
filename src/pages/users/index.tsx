@@ -93,10 +93,10 @@ function Users() {
   // console.log(users);
   return (
     <>
-      {loading && <Backdrop loading={loading} />}
+      {loading && <Backdrop />}
 
-      <div className="min-h-screen bg-gray-100 p-10 lg:p-14 mx-auto">
-        <div className="shadow-lg rounded-lg max-w-screen-2xl bg-white">
+      <div className="min-h-screen p-5 md:p-10 lg:p-14 mx-auto">
+        <div className="shadow-lg rounded-lg max-w-screen-2xl bg-white p-2">
           <DataTable
             pagination
             columns={columns}

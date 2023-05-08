@@ -4,15 +4,20 @@ import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import NextNProgress from "nextjs-progressbar";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Navbar />
-      <div className="mx-auto">
-        <Component {...pageProps} />
+      <NextNProgress />
+      <div className="bg-bg-image bg-center bg-cover bg-no-repeat">
+        <Navbar />
+
+        <div className="mx-auto">
+          <Component {...pageProps} />
+        </div>
+        <Footer />
       </div>
-      <Footer />
       <ToastContainer
         position="top-center"
         autoClose={5000}

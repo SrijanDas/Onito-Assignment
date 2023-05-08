@@ -100,7 +100,10 @@ function AddUser({}: Props) {
     <>
       <Backdrop loading={loading} />
       <div className="px-10 py-5 lg:px-24 lg:py-10 min-h-screen ">
-        <form onSubmit={onSubmit}>
+        <form
+          className="bg-white bg-opacity-95 rounded-lg shadow-lg px-10 py-5"
+          onSubmit={onSubmit}
+        >
           <FormSection col={3} title="Personal Details">
             <Input
               label="Name"
